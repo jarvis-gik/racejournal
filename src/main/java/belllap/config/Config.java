@@ -19,7 +19,8 @@ public class Config {
     @Bean
     public RaceService raceService() {
         RaceService raceService = new RaceService();
-        raceService.setBootstrapFile(environment.getProperty("bootstrapFile"));
+        raceService.setBootstrapFile(environment.getProperty("bootstrapfile"));
+        raceService.setProtoBufFile(environment.getProperty("protobuffile"));
         return raceService;
     }
 }

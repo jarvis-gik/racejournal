@@ -7,13 +7,15 @@ buildscript {
 
     }
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.3"
+        classpath('com.github.jengelman.gradle.plugins:shadow:1.2.3')
+        classpath('com.google.protobuf:protobuf-gradle-plugin:0.7.4')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'com.google.protobuf'
 
 mainClassName = 'belllap.CmdLineApplication'
 
@@ -31,4 +33,12 @@ dependencies {
     compile('org.slf4j:slf4j-api:1.5.8')
     compile('org.slf4j:slf4j-log4j12:1.5.8')
     compile('log4j:log4j:1.2.14')
+
+    compile('com.google.protobuf:protobuf-java:2.6.1')
+}
+
+// Specify where to place generated proto java files
+// Put in same place as normal src so IDE find them
+protobuf {
+    generatedFilesBaseDir = "$projectDir/src"
 }

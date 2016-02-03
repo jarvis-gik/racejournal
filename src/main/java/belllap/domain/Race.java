@@ -18,7 +18,6 @@ public class Race {
     public Race() {}
 
     public Race(String name, LocalDate date, String city, String state, RaceType raceType) {
-        this.id = "id-needs-assignment"; // todo
         this.name = name;
         this.date = date;
         this.city = city;

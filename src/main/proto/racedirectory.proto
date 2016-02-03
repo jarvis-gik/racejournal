@@ -1,0 +1,26 @@
+package proto;
+
+option java_package = "belllap.proto";
+option java_outer_classname = "RaceDirectoryProto";
+
+message Race {
+    required string id = 1;
+    required string name = 2;
+    optional int64 date = 3;
+    optional string city = 4;
+    optional string state = 5;
+    optional RaceType raceType = 6;
+
+    enum RaceType {
+        CRITERIUM = 0;
+        ROAD_RACE = 1;
+        HILL_CLIMB = 2;
+        TIME_TRIAL = 3;
+        OTHER = 4;
+
+    }
+}
+
+message RaceDirectory {
+    repeated Race race = 1;
+}
