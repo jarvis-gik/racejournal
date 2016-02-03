@@ -6,3 +6,5 @@
 *.iml
 /src/main/java/com/adam/protos
 RaceDirectoryProtoBufData
+target
+classes
