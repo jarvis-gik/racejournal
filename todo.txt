@@ -1,0 +1,16 @@
+TODO
+Persist as protobuf before RDB (later document)
+Pull CSV file from coloradocycling.org on demand rather than use local file
+
+Deploy goals:
+1 - war in tomcat
+2 - runnable jar w embedded http
+3 - runnable jar w embedded http in docker (easy)
+
+
+
+COMPLETE
+Configure logging // looks like just need to drop log4j.properties on classpath
+Parse file // https://docs.oracle.com/javase/tutorial/essential/io/file.html
+Load property file // Use @PropertySource in a @Configuration class
+Create runnable cmd line jar // https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow
