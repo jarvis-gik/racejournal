@@ -17,3 +17,4 @@ Fix date format in JSON // simply put jackson-datatype-jsr310 on classpath
 mvn debug // added export MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n' to .dev_profile
 Pull CSV file from coloradocycling.org // https://cloud.google.com/appengine/docs/java/urlfetch/
 Get static html served // configred WebConfig.addResourceHandlers http://stackoverflow.com/questions/15479213/how-to-serve-html-files-with-spring
+Nicely format enum // added value attr and json annotation http://www.baeldung.com/jackson-serialize-enums

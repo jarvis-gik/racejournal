@@ -20,7 +20,6 @@
         angular.module('sortApp', ['ngRoute'])
 
                 .controller('mainController', [ '$scope', '$http', function ($scope, $http) {
-                    alert("mainController")
                     $scope.sortType     = 'name'; // set the default sort type
                     $scope.sortReverse  = false;  // set the default sort order
                     $scope.searchRace   = '';     // set the default search/filter term
@@ -30,7 +29,6 @@
                     $scope.loadRaces = function(){
                         $http.get('../races')// this is probably bad but it worked...
                                 .success(function(data, status, headers, config) {
-                                    alert('Loading races');
                                     $scope.races = data;
                                 })
                                 .error(function(data, status, headers, config) {
