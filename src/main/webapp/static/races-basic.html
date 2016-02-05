@@ -1,0 +1,74 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <title>Hello AngularJS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
+    <script>
+        var myApp = angular.module('myApp',['ngRoute']);
+
+        angular.module('myApp')
+                .controller('raceController', [ '$scope', '$http', function ($scope, $http) {
+
+                    $scope.races = {};
+
+                    $scope.loadRaces = function(){
+                        $http.get('../races')// this is probably bad but it worked...
+                                .success(function(data, status, headers, config) {
+//                                    alert('Loading races');
+                                    $scope.races = data;
+                                })
+                                .error(function(data, status, headers, config) {
+                                    alert('Error loading races');
+                                });
+                    };
+
+//                    $scope.addTodo = function(){
+//                        $http.post('todos',$scope.newTodo)
+//                                .success(function(data, status, headers, config) {
+//                                    $scope.newTodo = {};
+//                                    $scope.loadTodos();
+//                                })
+//                                .error(function(data, status, headers, config) {
+//                                    alert('Error saving Todo');
+//                                });
+//                    };
+//
+//                    $scope.deleteTodo = function(todo){
+//                        $http.delete('todos/'+todo.id)
+//                                .success(function(data, status, headers, config) {
+//                                    $scope.loadTodos();
+//                                })
+//                                .error(function(data, status, headers, config) {
+//                                    alert('Error deleting Todo');
+//                                });
+//                    };
+
+                    $scope.loadRaces();
+                }]);
+    </script>
+</head>
+
+<body>
+<div ng-controller="raceController">
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Category</th>
+        </tr>
+        <tr ng-repeat="race in races">
+            <td>{{race.id}}</td>
+            <td>{{race.name}}</td>
+            <td>{{race.date | date}}</td>
+            <td>{{race.city}}</td>
+            <td>{{race.state}}</td>
+            <td>{{race.raceType}}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

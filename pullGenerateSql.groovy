@@ -41,12 +41,12 @@ String parseCsvLine(AtomicLong atomicLong, String line) {
     if(tokens[0].equals("\"event number\"")) return null; // skip header
 
     Long id= atomicLong.incrementAndGet();
-    String name = tokens[1].replace("\"","").trim().replaceAll("'", "");
+    String name = tokens[1].replaceAll("\"","").trim().replaceAll("'", "").trim();
     String[] dateTokens = tokens[3].split("/");
     LocalDate date = LocalDate.of(Integer.parseInt(dateTokens[2]), Integer.parseInt(dateTokens[0]), Integer.parseInt(dateTokens[1]));
 //    java.sql.Date sqlDate = java.sql.Date.valueOf(date);
-    String city = tokens[4].trim();
-    String state = tokens[5].trim();
+    String city = tokens[4].replaceAll("\"","").trim().replaceAll("'", "").trim();
+    String state = tokens[5].replaceAll("\"","").trim().replaceAll("'", "").trim()
     String raceType = categorizeRaceType(name);
 
     String sql = "insert into races (id, name, date, city, state, race_type) values ($id, '$name', '$date', '$city', '$state', '$raceType')";
