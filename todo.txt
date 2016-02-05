@@ -1,16 +1,18 @@
 TODO
-Persist as protobuf before RDB (later document)
-Pull CSV file from coloradocycling.org on demand rather than use local file
-
-Deploy goals:
-1 - war in tomcat
-2 - runnable jar w embedded http
-3 - runnable jar w embedded http in docker (easy)
-
-
+Elegant solution to pull coloradocycling csb hidden behind interface and fix up nasty parsing
+Scheduled job to repull coloradocyclign csv on some interval for refreshed data
+Batch update in DB
+Figure out hot deploy
+mvn disable pulling transitive deps
+Expose embedded db web console for access
+Convert from in-mem DB to actual DB (postgres or just h2 with file)
 
 COMPLETE
 Configure logging // looks like just need to drop log4j.properties on classpath
 Parse file // https://docs.oracle.com/javase/tutorial/essential/io/file.html
 Load property file // Use @PropertySource in a @Configuration class
 Create runnable cmd line jar // https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow
+No XML mvc app (note: gradle jetty plugin doesnt work thus moved to maven) // http://kielczewski.eu/2013/11/spring-mvc-without-web-xml-using-webapplicationinitializer/
+Fix date format in JSON // simply put jackson-datatype-jsr310 on classpath
+mvn debug // added export MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n' to .dev_profile
+Pull CSV file from coloradocycling.org // https://cloud.google.com/appengine/docs/java/urlfetch/

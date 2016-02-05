@@ -59,6 +59,20 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!-- DB -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.191</version>
+        </dependency>
+
+
         <!-- JavaEE APIs -->
 
         <dependency>
@@ -82,6 +96,13 @@
             <version>2.6.3</version>
         </dependency>
 
+        <!-- Jackson JSON Fix Date Formatting (not sure how this is working) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -91,7 +112,7 @@
 
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.5</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -102,7 +123,7 @@
 
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
+                <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -113,7 +134,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.0.6.v20130930</version>
+                <version>9.3.7.v20160115</version>
                 <configuration>
                     <httpConnector>
                         <port>8080</port>

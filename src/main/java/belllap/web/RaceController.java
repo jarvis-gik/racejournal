@@ -1,5 +1,6 @@
 package belllap.web;
 
+import belllap.data.RaceRepository;
 import belllap.domain.Race;
 import belllap.service.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,17 @@ public class RaceController {
     @Autowired
     RaceService raceService;
 
-    @RequestMapping(value = "/race", method = RequestMethod.GET, produces = "application/json")
-    public Race race(@RequestParam("name") String name) {
-        List<Race> races = raceService.loadRaceData();
-        for(Race race : races) {
-            if(race.getName().toLowerCase().contains(name.toLowerCase())) return race;
-        }
-        return null;
+//    @Autowired
+//    RaceRepository raceRepository;
+//
+//    @RequestMapping(value = "/email", method = RequestMethod.GET)
+//    public String email(@RequestParam String name) {
+//        return raceRepository.getEmailByName(name);
+//    }
+
+    @RequestMapping(value = "/racesByType", method = RequestMethod.GET, produces = "application/json")
+    public List<Race> races(@RequestParam("type") String type) {
+        return raceService.getRacesByType(type.trim());
     }
 
     @RequestMapping(value = "/races", method = RequestMethod.GET, produces = "application/json")

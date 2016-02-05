@@ -1,5 +1,6 @@
 package belllap.service;
 
+import belllap.data.RaceRepository;
 import belllap.domain.RaceType;
 import belllap.proto.RaceDirectoryProto;
 import belllap.proto.RaceProtoMapper;
@@ -11,11 +12,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by alaplante on 2/2/16.
@@ -26,8 +30,13 @@ public class RaceService {
     @Autowired
     private ResourceLoader resourceLoader;
 
+    @Autowired
+    private RaceRepository raceRepository;
+
     private String bootstrapFile;
     private String protoBufFile;
+
+    private AtomicLong atomicLong = new AtomicLong();
 
     public void setBootstrapFile(String bootstrapFile) {
         this.bootstrapFile = bootstrapFile;
@@ -37,34 +46,71 @@ public class RaceService {
         this.protoBufFile = protoBufFile;
     }
 
+    public List<Race> getRacesByType(String type) {
+        return raceRepository.fetchRacesByType(type.toUpperCase());
+    }
+
     public List<Race> loadRaceData() {
-        List<Race> races = null;
+        List<Race> races  = raceRepository.fetchRaces();
+        if(races.isEmpty()) { // Bootstrap
+            logger.info("DB empty thus bootstrap");
+//            races = parseCsv(bootstrapFile);
+            races = pullRemoteAndParse();
 
-        // First try proto
-        long start = System.currentTimeMillis();
-        races = readProtoBuf(protoBufFile);
-        if(races.size() > 0) {
-            logger.info("Deserialized proto buff data to races in {} ms", System.currentTimeMillis() - start);
-            return races;
+            // Save to DB
+            logger.info("Save {} races to DB", races.size());
+            raceRepository.saveRaces(races);
+
         }
+        return raceRepository.fetchRaces();
+    }
 
-        // Otherwise bootstrap
-        start = System.currentTimeMillis();
-        races = parseCsv(bootstrapFile);
-        logger.info("Parsed CSV in {} ms", System.currentTimeMillis() - start);
+    public List<Race> pullRemoteAndParse() {
+        List<Race> races = new ArrayList<Race>();
+        try {
+            URL url = new URL("http://www.coloradocycling.org/calendar/download");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line;
 
-        // Persist as proto buf for next time
-        start = System.currentTimeMillis();
-        saveProtoBuf(races);
-        logger.info("Serialized races to proto buff data in {} ms", System.currentTimeMillis() - start);
-
-        // Ensure all good
-        start = System.currentTimeMillis();
-        races = readProtoBuf(protoBufFile);
-        logger.info("Deserialized proto buff data to races in {} ms", System.currentTimeMillis() - start);
-
+            while ((line = reader.readLine()) != null) {
+                Race race = parseCsvLine(line);
+                if(race!= null) races.add(race);
+            }
+            reader.close();
+        } catch(Exception e) {
+            logger.error("Error pulling file");
+        }
         return races;
     }
+
+//    public List<Race> loadRaceData() {
+//        List<Race> races = null;
+//
+//        // First try proto
+//        long start = System.currentTimeMillis();
+//        races = readProtoBuf(protoBufFile);
+//        if(races.size() > 0) {
+//            logger.info("Deserialized proto buff data to races in {} ms", System.currentTimeMillis() - start);
+//            return races;
+//        }
+//
+//        // Otherwise bootstrap
+//        start = System.currentTimeMillis();
+//        races = parseCsv(bootstrapFile);
+//        logger.info("Parsed CSV in {} ms", System.currentTimeMillis() - start);
+//
+//        // Persist as proto buf for next time
+//        start = System.currentTimeMillis();
+//        saveProtoBuf(races);
+//        logger.info("Serialized races to proto buff data in {} ms", System.currentTimeMillis() - start);
+//
+//        // Ensure all good
+//        start = System.currentTimeMillis();
+//        races = readProtoBuf(protoBufFile);
+//        logger.info("Deserialized proto buff data to races in {} ms", System.currentTimeMillis() - start);
+//
+//        return races;
+//    }
 
     private List<Race> readProtoBuf(String file) {
         logger.info("Load race data from protocol buffer file");
@@ -124,13 +170,15 @@ public class RaceService {
     //   0            1                                          2      3         4       5
     // 1853,"Lucky Pie Criterium -  CO Master Crit Championships",,08/21/2016,Louisville,CO,,,,Y,
     private Race parseCsvLine(String line) {
+        logger.info("Parse line {}", line);
         String[] tokens = line.split(",");
-        if(tokens.length != 10) {
-            logger.error("Line is not 10 tokens {}", line);
-            return null;
-        }
+        if(tokens[0].equals("\"event number\"")) return null; // skip header
+//        if(tokens.length != 10) {
+//            logger.error("Line is not 10 tokens {}", line);
+//            return null;
+//        }
         Race race = new Race();
-        race.setId("todo-id");
+        race.setId(atomicLong.incrementAndGet());
         race.setName(tokens[1].replace("\"","").trim());
         String[] dateTokens = tokens[3].split("/");
         race.setDate(LocalDate.of(Integer.parseInt(dateTokens[2]), Integer.parseInt(dateTokens[0]), Integer.parseInt(dateTokens[1])));

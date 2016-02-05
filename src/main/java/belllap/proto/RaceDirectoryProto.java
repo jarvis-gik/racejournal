@@ -13,18 +13,13 @@ public final class RaceDirectoryProto {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string id = 1;</code>
+     * <code>required int64 id = 1;</code>
      */
     boolean hasId();
     /**
-     * <code>required string id = 1;</code>
+     * <code>required int64 id = 1;</code>
      */
-    java.lang.String getId();
-    /**
-     * <code>required string id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
+    long getId();
 
     /**
      * <code>required string name = 2;</code>
@@ -138,10 +133,9 @@ public final class RaceDirectoryProto {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
-              id_ = bs;
+              id_ = input.readInt64();
               break;
             }
             case 18: {
@@ -328,45 +322,18 @@ public final class RaceDirectoryProto {
 
     private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
-    private java.lang.Object id_;
+    private long id_;
     /**
-     * <code>required string id = 1;</code>
+     * <code>required int64 id = 1;</code>
      */
     public boolean hasId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string id = 1;</code>
+     * <code>required int64 id = 1;</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          id_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
+    public long getId() {
+      return id_;
     }
 
     public static final int NAME_FIELD_NUMBER = 2;
@@ -526,7 +493,7 @@ public final class RaceDirectoryProto {
     }
 
     private void initFields() {
-      id_ = "";
+      id_ = 0L;
       name_ = "";
       date_ = 0L;
       city_ = "";
@@ -555,7 +522,7 @@ public final class RaceDirectoryProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getIdBytes());
+        output.writeInt64(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeBytes(2, getNameBytes());
@@ -583,7 +550,7 @@ public final class RaceDirectoryProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getIdBytes());
+          .computeInt64Size(1, id_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
@@ -722,7 +689,7 @@ public final class RaceDirectoryProto {
 
       public Builder clear() {
         super.clear();
-        id_ = "";
+        id_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
@@ -803,9 +770,7 @@ public final class RaceDirectoryProto {
       public Builder mergeFrom(belllap.proto.RaceDirectoryProto.Race other) {
         if (other == belllap.proto.RaceDirectoryProto.Race.getDefaultInstance()) return this;
         if (other.hasId()) {
-          bitField0_ |= 0x00000001;
-          id_ = other.id_;
-          onChanged();
+          setId(other.getId());
         }
         if (other.hasName()) {
           bitField0_ |= 0x00000002;
@@ -863,78 +828,34 @@ public final class RaceDirectoryProto {
       }
       private int bitField0_;
 
-      private java.lang.Object id_ = "";
+      private long id_ ;
       /**
-       * <code>required string id = 1;</code>
+       * <code>required int64 id = 1;</code>
        */
       public boolean hasId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>required int64 id = 1;</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            id_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public long getId() {
+        return id_;
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>required int64 id = 1;</code>
        */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string id = 1;</code>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
+      public Builder setId(long value) {
+        bitField0_ |= 0x00000001;
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>required int64 id = 1;</code>
        */
       public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string id = 1;</code>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        id_ = value;
+        id_ = 0L;
         onChanged();
         return this;
       }
@@ -1953,7 +1874,7 @@ public final class RaceDirectoryProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\023racedirectory.proto\022\005proto\"\310\001\n\004Race\022\n\n" +
-      "\002id\030\001 \002(\t\022\014\n\004name\030\002 \002(\t\022\014\n\004date\030\003 \001(\003\022\014\n" +
+      "\002id\030\001 \002(\003\022\014\n\004name\030\002 \002(\t\022\014\n\004date\030\003 \001(\003\022\014\n" +
       "\004city\030\004 \001(\t\022\r\n\005state\030\005 \001(\t\022&\n\010raceType\030\006" +
       " \001(\0162\024.proto.Race.RaceType\"S\n\010RaceType\022\r" +
       "\n\tCRITERIUM\020\000\022\r\n\tROAD_RACE\020\001\022\016\n\nHILL_CLI" +

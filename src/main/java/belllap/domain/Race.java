@@ -1,5 +1,7 @@
 package belllap.domain;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 /**
@@ -7,7 +9,7 @@ import java.time.LocalDate;
  */
 public class Race {
     // todo autoassign?
-    String id;
+    Long id;
 
     String name;
     LocalDate date;
@@ -25,11 +27,11 @@ public class Race {
         this.raceType = raceType;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

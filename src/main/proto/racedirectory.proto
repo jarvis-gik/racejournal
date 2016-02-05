@@ -4,7 +4,7 @@ option java_package = "belllap.proto";
 option java_outer_classname = "RaceDirectoryProto";
 
 message Race {
-    required string id = 1;
+    required int64 id = 1;
     required string name = 2;
     optional int64 date = 3;
     optional string city = 4;
