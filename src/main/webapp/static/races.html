@@ -20,7 +20,7 @@
         angular.module('sortApp', ['ngRoute'])
 
                 .controller('mainController', [ '$scope', '$http', function ($scope, $http) {
-                    $scope.sortType     = 'name'; // set the default sort type
+                    $scope.sortType     = 'date'; // set the default sort type
                     $scope.sortReverse  = false;  // set the default sort order
                     $scope.searchRace   = '';     // set the default search/filter term
 
@@ -43,7 +43,7 @@
 <body>
 <div class="container" ng-app="sortApp" ng-controller="mainController">
 
-    <div class="alert alert-info">
+    <div class="alert alert-info" hidden="true"> // remove hidden for debug purposes
         <p>Sort Type: {{ sortType }}</p>
         <p>Sort Reverse: {{ sortReverse }}</p>
         <p>Search Query: {{ searchRace }}</p>
@@ -53,7 +53,7 @@
         <div class="form-group">
             <div class="input-group">
                 <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                <input type="text" class="form-control" placeholder="Search da Race" ng-model="searchRace">
+                <input type="text" class="form-control" placeholder="Search Colorado Racing 2016 Season" ng-model="searchRace">
             </div>
         </div>
     </form>
@@ -77,6 +77,13 @@
                 </a>
             </td>
             <td>
+                <a href="#" ng-click="sortType = 'date'; sortReverse = !sortReverse">
+                    Date
+                    <span ng-show="sortType == 'date' && !sortReverse" class="fa fa-caret-down"></span>
+                    <span ng-show="sortType == 'date' && sortReverse" class="fa fa-caret-up"></span>
+                </a>
+            </td>
+            <td>
                 <a href="#" ng-click="sortType = 'raceType'; sortReverse = !sortReverse">
                     Category
                     <span ng-show="sortType == 'raceType' && !sortReverse" class="fa fa-caret-down"></span>
@@ -90,6 +97,7 @@
         <tr ng-repeat="race in races | orderBy:sortType:sortReverse | filter:searchRace">
             <td>{{ race.name }}</td>
             <td>{{ race.city }}</td>
+            <td>{{ race.date }}</td>
             <td>{{ race.raceType }}</td>
         </tr>
         </tbody>

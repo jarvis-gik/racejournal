@@ -1,5 +1,6 @@
 package belllap.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ public class Race {
         this.name = name;
     }
 
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="M/dd", timezone="MST")
     public LocalDate getDate() {
         return date;
     }

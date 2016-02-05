@@ -18,3 +18,4 @@ mvn debug // added export MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,addr
 Pull CSV file from coloradocycling.org // https://cloud.google.com/appengine/docs/java/urlfetch/
 Get static html served // configred WebConfig.addResourceHandlers http://stackoverflow.com/questions/15479213/how-to-serve-html-files-with-spring
 Nicely format enum // added value attr and json annotation http://www.baeldung.com/jackson-serialize-enums
+Nicely format date // @JsonFormat to getDate() http://wiki.fasterxml.com/JacksonFAQDateHandling
