@@ -2,7 +2,6 @@ package belllap.service;
 
 import belllap.data.RaceRepository;
 import belllap.domain.RaceType;
-import belllap.proto.RaceDirectoryProto;
 import belllap.proto.RaceProtoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -112,41 +110,41 @@ public class RaceService {
 //        return races;
 //    }
 
-    private List<Race> readProtoBuf(String file) {
-        logger.info("Load race data from protocol buffer file");
-        List<Race> races = new ArrayList<Race>();
-        RaceDirectoryProto.RaceDirectory.Builder raceDirectoryBuilder = RaceDirectoryProto.RaceDirectory.newBuilder();
+//    private List<Race> readProtoBuf(String file) {
+//        logger.info("Load race data from protocol buffer file");
+//        List<Race> races = new ArrayList<Race>();
+//        RaceDirectoryProto.RaceDirectory.Builder raceDirectoryBuilder = RaceDirectoryProto.RaceDirectory.newBuilder();
+//
+//        try {
+//            raceDirectoryBuilder.mergeFrom(new FileInputStream(protoBufFile));
+//        } catch(IOException e) {
+//            logger.error("Error reading proto buf file", e);
+//        }
+//
+//        RaceDirectoryProto.RaceDirectory raceDirectory = raceDirectoryBuilder.build();
+//        for(RaceDirectoryProto.Race race : raceDirectory.getRaceList()) {
+//            races.add(RaceProtoMapper.mapFrom(race));
+//        }
+//        logger.info("Loaded race data from protocol buffer file");
+//        return races;
+//    }
 
-        try {
-            raceDirectoryBuilder.mergeFrom(new FileInputStream(protoBufFile));
-        } catch(IOException e) {
-            logger.error("Error reading proto buf file", e);
-        }
-
-        RaceDirectoryProto.RaceDirectory raceDirectory = raceDirectoryBuilder.build();
-        for(RaceDirectoryProto.Race race : raceDirectory.getRaceList()) {
-            races.add(RaceProtoMapper.mapFrom(race));
-        }
-        logger.info("Loaded race data from protocol buffer file");
-        return races;
-    }
-
-    private void saveProtoBuf(List<Race> races) {
-        logger.info("Save race data to protocol buffer file");
-        RaceDirectoryProto.RaceDirectory.Builder raceDirectoryBuilder = RaceDirectoryProto.RaceDirectory.newBuilder();
-        for(Race race : races) {
-            raceDirectoryBuilder.addRace(RaceProtoMapper.mapTo(race));
-        }
-        try {
-            FileOutputStream fos = new FileOutputStream(protoBufFile);
-            raceDirectoryBuilder.build().writeTo(fos);
-            fos.close();
-            logger.info("Race data saved to protocol buffer file");
-        } catch(IOException e) {
-            logger.error("Error writing proto buf file", e);
-        }
-
-    }
+//    private void saveProtoBuf(List<Race> races) {
+//        logger.info("Save race data to protocol buffer file");
+//        RaceDirectoryProto.RaceDirectory.Builder raceDirectoryBuilder = RaceDirectoryProto.RaceDirectory.newBuilder();
+//        for(Race race : races) {
+//            raceDirectoryBuilder.addRace(RaceProtoMapper.mapTo(race));
+//        }
+//        try {
+//            FileOutputStream fos = new FileOutputStream(protoBufFile);
+//            raceDirectoryBuilder.build().writeTo(fos);
+//            fos.close();
+//            logger.info("Race data saved to protocol buffer file");
+//        } catch(IOException e) {
+//            logger.error("Error writing proto buf file", e);
+//        }
+//
+//    }
 
     private List<Race> parseCsv(String file) {
         logger.info("Load and parse file {}", file);
