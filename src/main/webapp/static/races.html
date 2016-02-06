@@ -27,7 +27,7 @@
                     $scope.races = {};
 
                     $scope.loadRaces = function(){
-                        $http.get('../races')// this is probably bad but it worked...
+                        $http.get('../rest/races')// this is probably bad but it worked...
                                 .success(function(data, status, headers, config) {
                                     $scope.races = data;
                                 })
@@ -97,7 +97,7 @@
         <tr ng-repeat="race in races | orderBy:sortType:sortReverse | filter:searchRace">
             <td>{{ race.name }}</td>
             <td>{{ race.city }}</td>
-            <td>{{ race.date }}</td>
+            <td>{{ race.prettyDate }}</td>
             <td>{{ race.raceType }}</td>
         </tr>
         </tbody>

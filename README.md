@@ -5,7 +5,7 @@ To run:
 mvn jetty:run
 
 Raw JSON:
-http://localhost:8080/races
+http://localhost:8080/rest/races
 
 AngularJS UI:
-http://localhost:8080/static/races.html
+http://localhost:8080/web/races.html

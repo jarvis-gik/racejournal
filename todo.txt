@@ -1,11 +1,26 @@
-TODO
-Elegant solution to pull coloradocycling csb hidden behind interface and fix up nasty parsing
-Scheduled job to repull coloradocyclign csv on some interval for refreshed data
-Batch update in DB
-Figure out hot deploy
-mvn disable pulling transitive deps
-Expose embedded db web console for access
-Convert from in-mem DB to actual DB (postgres or just h2 with file)
+Features:
+    Add Rider and allow Rider to log a RaceResult to record placing and details
+    Rider account creation with login / security
+    Pull result data from USAC?
+        https://www.usacycling.org/results/?compid=428596
+    Scheduled recurring job to re-pull csv every day and reload if parsing successful, maintain date of most recent
+
+Tech:
+    Hide DAO behind interface and implement a MongoDB dao and JPA dao
+    Microservice architecture using protobuf comm
+    Move away from in-mem DB to actual RDB that saves data (keep configurable - in mem for dev work)
+
+Infrastructure:
+    Refactor out protobuf and unneeded code
+    Separate objects for REST/JSON vs data/persistance?
+    Elegant parsing of csv, externalize special case strings for generic handling
+    Efficient batch save/insert of races opposed to individual right now
+
+Dev Ops
+    Get mvn jetty:run hot deploy working
+    Disable mvn transitive deps
+
+
 
 COMPLETE
 Configure logging // looks like just need to drop log4j.properties on classpath
@@ -19,3 +34,4 @@ Pull CSV file from coloradocycling.org // https://cloud.google.com/appengine/doc
 Get static html served // configred WebConfig.addResourceHandlers http://stackoverflow.com/questions/15479213/how-to-serve-html-files-with-spring
 Nicely format enum // added value attr and json annotation http://www.baeldung.com/jackson-serialize-enums
 Nicely format date // @JsonFormat to getDate() http://wiki.fasterxml.com/JacksonFAQDateHandling
+Add day of week to date json // added a prettyPrint getter rather than have angular format the epoch time so search would still work (could search 'Saturday' date value was formatted epoch long)
