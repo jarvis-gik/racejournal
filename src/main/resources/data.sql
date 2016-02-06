@@ -1,4 +1,3 @@
-/* Race data */
 insert into races (id, name, date, city, state, race_type) values (1, 'BRAC Cross Cup Awards Party', '2016-01-30', 'Westminster', 'CO', 'OTHER')
 insert into races (id, name, date, city, state, race_type) values (2, 'BRAC Officials Meeting', '2016-02-20', 'USA Cycling Office - CO Spgs (2:30)', 'CO', 'OTHER')
 insert into races (id, name, date, city, state, race_type) values (3, 'CX Race Directors Meeting', '2016-02-24', 'Littleton', 'CO', 'OTHER')
@@ -10,8 +9,8 @@ insert into races (id, name, date, city, state, race_type) values (8, 'Front Ran
 insert into races (id, name, date, city, state, race_type) values (9, 'Louisville Criterium', '2016-04-02', 'Louisville', 'CO', 'CRITERIUM')
 insert into races (id, name, date, city, state, race_type) values (10, 'Front Range Classic - USAFA Road Race', '2016-04-03', 'USAFA', 'CO', 'ROAD_RACE')
 insert into races (id, name, date, city, state, race_type) values (11, 'Karen Hornbostel Meml TT #1 @ Cherry Creek State Park', '2016-04-06', 'Denver', 'CO', 'TIME_TRIAL')
-insert into races (id, name, date, city, state, race_type) values (12, 'Buff Gold TT/TTT', '2016-04-09', 'Boulder', 'CO', 'TIME_TRIAL')
-insert into races (id, name, date, city, state, race_type) values (13, 'Buff Gold Circuit Race', '2016-04-10', 'Boulder', 'CO', 'ROAD_RACE')
+insert into races (id, name, date, city, state, race_type) values (12, 'Buffs Gold TT/TTT', '2016-04-09', 'Boulder', 'CO', 'TIME_TRIAL')
+insert into races (id, name, date, city, state, race_type) values (13, 'Buffs Gold Circuit Race', '2016-04-10', 'Boulder', 'CO', 'ROAD_RACE')
 insert into races (id, name, date, city, state, race_type) values (14, 'Karen Hornbostel Meml TT #2 @ Cherry Creek State Park', '2016-04-13', 'Denver', 'CO', 'TIME_TRIAL')
 insert into races (id, name, date, city, state, race_type) values (15, 'CSU Rams Circuit Race', '2016-04-16', 'Fort Collins', 'CO', 'ROAD_RACE')
 insert into races (id, name, date, city, state, race_type) values (16, 'CSU Oval Criterium', '2016-04-17', 'Fort Collins', 'CO', 'CRITERIUM')

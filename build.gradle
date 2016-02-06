@@ -1,23 +1,24 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/" // shadow
-        }
+//        maven {
+//            url "https://plugins.gradle.org/m2/" // shadow
+//        }
 
     }
     dependencies {
-        classpath('com.github.jengelman.gradle.plugins:shadow:1.2.3')
-        classpath('com.google.protobuf:protobuf-gradle-plugin:0.7.4')
+//        classpath('com.github.jengelman.gradle.plugins:shadow:1.2.3')
+//        classpath('com.google.protobuf:protobuf-gradle-plugin:0.7.4')
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'application'
-apply plugin: "com.github.johnrengelman.shadow"
-apply plugin: 'com.google.protobuf'
+//apply plugin: 'application'
+//apply plugin: "com.github.johnrengelman.shadow"
+//apply plugin: 'com.google.protobuf'
+apply plugin: 'jetty'
 
-mainClassName = 'belllap.CmdLineApplication'
+//mainClassName = 'belllap.CmdLineApplication'
 
 repositories {
     mavenCentral()
@@ -34,12 +35,21 @@ dependencies {
     compile('org.slf4j:slf4j-log4j12:1.5.8')
     compile('log4j:log4j:1.2.14')
     compile('org.springframework:spring-webmvc:4.2.4.RELEASE')
+    compile('org.springframework:spring-jdbc:4.2.4.RELEASE')
+
     compile('javax.servlet:javax.servlet-api:3.0.1')
-    compile('com.google.protobuf:protobuf-java:2.6.1')
+//    compile('com.google.protobuf:protobuf-java:2.6.1')
+    compile('com.fasterxml.jackson.core:jackson-databind:2.6.3')
+    compile('com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.3')
+    compile('com.h2database:h2:1.4.191')
 }
 
 // Specify where to place generated proto java files
 // Put in same place as normal src so IDE find them
-protobuf {
-    generatedFilesBaseDir = "$projectDir/src"
+//protobuf {
+//    generatedFilesBaseDir = "$projectDir/src"
+//}
+
+jettyRun {
+    contextPath = ""
 }
