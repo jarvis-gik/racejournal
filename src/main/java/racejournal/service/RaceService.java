@@ -38,9 +38,9 @@ public class RaceService {
         this.bootstrapFile = bootstrapFile;
     }
 
-    public void setProtoBufFile(String protoBufFile) {
-        this.protoBufFile = protoBufFile;
-    }
+//    public void setProtoBufFile(String protoBufFile) {
+//        this.protoBufFile = protoBufFile;
+//    }
 
 //    public List<Race> getRacesByType(String type) {
 //        return raceDao.fetchRacesByType(type.toUpperCase());

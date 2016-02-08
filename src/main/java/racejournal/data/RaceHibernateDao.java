@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by alaplante on 2/8/16.
  */
-@Primary
+//@Primary
 @Repository
 @EnableTransactionManagement
 public class RaceHibernateDao implements RaceDao {
@@ -44,7 +44,6 @@ public class RaceHibernateDao implements RaceDao {
     @Transactional
     public void saveRaces(List<Race> races) {
         for(Race race : races) {
-            logger.info("Attempt to save race {}", race.getName());
             sessionFactory.getCurrentSession().saveOrUpdate(race);
         }
     }

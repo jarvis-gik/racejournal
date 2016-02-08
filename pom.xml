@@ -124,6 +124,13 @@
             <version>5.0.7.Final</version>
         </dependency>
 
+        <!-- MongoDB Uber jar with BSON library, the core library and the mongodb-driver-->
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+
     </dependencies>
 
     <build>
