@@ -1,4 +1,4 @@
-package racejournal.web;
+package racejournal.controller;
 
 import racejournal.domain.Race;
 import racejournal.service.RaceService;

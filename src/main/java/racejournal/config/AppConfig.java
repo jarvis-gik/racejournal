@@ -14,7 +14,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @PropertySource("classpath:config.properties")
 @ComponentScan(basePackages = "racejournal")
-public class Config {
+public class AppConfig {
     @Autowired
     Environment environment;
 

@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import racejournal.config.Config;
+import racejournal.config.AppConfig;
 import racejournal.domain.Race;
 import racejournal.service.RaceService;
 
@@ -20,7 +20,7 @@ public class CmdLineApplication {
     public static void main(String[] args) {
         logger.info("Run CmdLineApplication...");
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Config.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         RaceService raceService = applicationContext.getBean(RaceService.class);
         List<Race> races = raceService.loadRaceData();
         logger.info("Loaded {} races", races.size());
