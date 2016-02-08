@@ -17,20 +17,14 @@ import java.util.List;
 /**
  * Created by alaplante on 2/8/16.
  */
-@Repository
 @Primary
+@Repository
 @EnableTransactionManagement
 public class RaceHibernateDao implements RaceDao {
     private final static Logger logger = LoggerFactory.getLogger(RaceHibernateDao.class);
 
     SessionFactory sessionFactory;
 
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        logger.info("DataSource set");
-    }
-
-    @Override
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         logger.info("SessionFactory set");

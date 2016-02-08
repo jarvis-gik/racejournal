@@ -29,22 +29,10 @@ public class RaceJdbcDao implements RaceDao {
     private AtomicLong atomicLong = new AtomicLong();
 
     @Autowired
-    @Override
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         logger.info("Datasource set");
     }
-
-    @Override
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        logger.info("Uhh..."); //wtf
-    }
-
-//    public String getEmailByName(String name) {
-//        logger.info("Get email for name {}", name);
-//        String sql = "select email from users where name = :name";
-//        return jdbcTemplate.queryForObject(sql, new MapSqlParameterSource("name", name), String.class);
-//    }
 
     @Override
     public List<Race> fetchRaces() {
