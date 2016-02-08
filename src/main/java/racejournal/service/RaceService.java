@@ -169,12 +169,12 @@ public class RaceService {
     // 1853,"Lucky Pie Criterium -  CO Master Crit Championships",,08/21/2016,Louisville,CO,,,,Y,
     private Race parseCsvLine(String line) {
         logger.info("Parse line {}", line);
+        if(line.contains("\"event number\"")) return null; // skip header
+        if(line.contains("(SMP 1-2, SM 3, SW P-1-2)")) {
+            line = line.replaceAll("SMP 1-2, SM 3, SW P-1-2", "SMP 1-2 SM 3 SW P-1-2");
+        }
+
         String[] tokens = line.split(",");
-        if(tokens[0].equals("\"event number\"")) return null; // skip header
-//        if(tokens.length != 10) {
-//            logger.error("Line is not 10 tokens {}", line);
-//            return null;
-//        }
         Race race = new Race();
         race.setId(atomicLong.incrementAndGet());
         race.setName(tokens[1].replace("\"","").trim());

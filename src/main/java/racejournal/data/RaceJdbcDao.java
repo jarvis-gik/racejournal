@@ -68,7 +68,7 @@ public class RaceJdbcDao implements RaceDao {
             namedParameters.addValue("date", race.getDate().toString()); //java.sql.Date.valueOf( localDate );
             namedParameters.addValue("city", race.getCity());
             namedParameters.addValue("state", race.getState());
-            namedParameters.addValue("raceType", race.getRaceType().toString());
+            namedParameters.addValue("raceType", race.getRaceType().name()); // .name() is the constant as declared
             updateCount += jdbcTemplate.update(sql, namedParameters);
         }
         logger.info("Inserted {} races", updateCount);

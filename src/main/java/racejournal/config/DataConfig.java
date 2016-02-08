@@ -20,7 +20,7 @@ public class DataConfig {
             .setScriptEncoding("UTF-8")
             .ignoreFailedDrops(true)
             .addScript("schema.sql")
-            .addScript("data.sql")
+//            .addScript("data.sql")
             .build();
     }
 }
