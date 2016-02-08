@@ -42,6 +42,17 @@ public class RaceMongoRawDao implements RaceDao {
     }
 
     @Override
+    public Race fetchRace(Long id) {
+        logger.error("TODO");
+        return null;
+    }
+
+    @Override
+    public void deleteRace(Long id) {
+        logger.error("TODO");
+    }
+
+    @Override
     public List<Race> fetchRaces() {
         List <Race> races = new ArrayList<Race>();
         logger.info("Mongo fetchRaces");

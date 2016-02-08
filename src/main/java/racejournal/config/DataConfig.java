@@ -50,12 +50,12 @@ public class DataConfig {
         return hibernateTransactionManager;
     }
 
-    @Bean
-    public RaceDao raceDao() {
-        RaceMongoRawDao raceMongoDao = new RaceMongoRawDao();
-        raceMongoDao.setDbUri(environment.getProperty("mongouri"));
-        raceMongoDao.setDbName(environment.getProperty("mongodb"));
-        raceMongoDao.init();
-        return raceMongoDao;
-    }
+//    @Bean
+//    public RaceDao raceDao() {
+//        RaceMongoRawDao raceMongoDao = new RaceMongoRawDao();
+//        raceMongoDao.setDbUri(environment.getProperty("mongouri"));
+//        raceMongoDao.setDbName(environment.getProperty("mongodb"));
+//        raceMongoDao.init();
+//        return raceMongoDao;
+//    }
 }

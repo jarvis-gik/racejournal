@@ -46,19 +46,37 @@ public class RaceService {
 //        return raceDao.fetchRacesByType(type.toUpperCase());
 //    }
 
-    public List<Race> loadRaceData() {
-        List<Race> races  = raceDao.fetchRaces();
+    public void bootstrap() {
+        List<Race> races = raceDao.fetchRaces();
         if(races.isEmpty()) { // Bootstrap
             logger.info("DB empty thus bootstrap");
-//            races = parseCsv(bootstrapFile);
-            races = pullRemoteAndParse();
-
+            try {
+//                races = pullRemoteAndParse();
+                races = parseCsv(bootstrapFile); // dont spam coloradocycling.org while testing
+            } catch(Exception e) {
+                logger.error("Error pulling or parsing remote file", e);
+                races = parseCsv(bootstrapFile);
+            }
             // Save to DB
             logger.info("Save {} races to DB", races.size());
             raceDao.saveRaces(races);
-
         }
+    }
+
+    public List<Race> fetchRaces() {
         return raceDao.fetchRaces();
+    }
+
+    public Race fetchRace(Long id) {
+        return raceDao.fetchRace(id);
+    }
+
+    public void deleteRace(Long id) {
+        raceDao.deleteRace(id);
+    }
+
+    public void saveRaces(List<Race> races) {
+        raceDao.saveRaces(races);
     }
 
     public List<Race> pullRemoteAndParse() {
@@ -175,12 +193,13 @@ public class RaceService {
         String[] tokens = line.split(",");
         Race race = new Race();
 //        race.setId(atomicLong.incrementAndGet());
-        race.setName(tokens[1].replace("\"","").trim());
+        race.setName(tokens[1].replaceAll("\"","").trim().replaceAll("'", "").trim());
         String[] dateTokens = tokens[3].split("/");
         race.setDate(LocalDate.of(Integer.parseInt(dateTokens[2]), Integer.parseInt(dateTokens[0]), Integer.parseInt(dateTokens[1])));
-        race.setCity(tokens[4].trim());
-        race.setState(tokens[5].trim());
+        race.setCity(tokens[4].replaceAll("\"","").trim().replaceAll("'", "").trim());
+        race.setState(tokens[5].replaceAll("\"","").trim().replaceAll("'", "").trim());
         race.setRaceType(categorizeRaceType(race.getName()));
+
         return race;
     }
 

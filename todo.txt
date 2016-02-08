@@ -1,5 +1,6 @@
 Today:
-
+    Race CRUD (even if not needed)
+    Proper HTTP return values on REST calls
 
 Features:
     Add Rider and allow Rider to log a RaceReport to record placing and details
@@ -12,15 +13,15 @@ Features:
         https://www.usacycling.org/results/?compid=428596
     Scheduled recurring job to re-pull csv every day and reload if parsing successful, maintain date of most recent
 
-Tech:
-    MongoDB dao
+Tech for Learning:
+    MongoDB dao (Spring version w clean impl)
     Microservice architecture using protobuf comm
-    Move away from in-mem DB to actual RDB that saves data (keep configurable - in mem for dev work)
 
 Infrastructure:
-    Refactor out protobuf and unneeded code
     Separate objects for REST/JSON vs data/persistance?
     Efficient batch save/insert of races opposed to individual right now
+    Move away from in-mem DB to actual RDB that saves data (keep configurable - in mem for dev work)
+
 
 Dev Ops
     Get mvn jetty:run hot deploy working

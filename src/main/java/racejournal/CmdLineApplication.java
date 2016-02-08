@@ -22,7 +22,7 @@ public class CmdLineApplication {
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         RaceService raceService = applicationContext.getBean(RaceService.class);
-        List<Race> races = raceService.loadRaceData();
+        List<Race> races = raceService.fetchRaces();
         logger.info("Loaded {} races", races.size());
 
 //        Map<RaceType, List<Race>> racesByRaceTypeMap = raceService.partitionRacesByRaceType(races);

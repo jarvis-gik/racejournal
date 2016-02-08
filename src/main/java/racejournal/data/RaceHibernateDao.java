@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by alaplante on 2/8/16.
  */
-//@Primary
+@Primary
 @Repository
 @EnableTransactionManagement
 public class RaceHibernateDao implements RaceDao {
@@ -33,10 +33,17 @@ public class RaceHibernateDao implements RaceDao {
 
     @Override
     @Transactional
+    public Race fetchRace(Long id) {
+        return sessionFactory.getCurrentSession().get(Race.class, id);
+    }
+
+    @Override
+    @Transactional
     public List<Race> fetchRaces() {
         List<Race> races = (List<Race>) sessionFactory.getCurrentSession()
                 .createCriteria(Race.class)
                 .setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+        logger.info("fetchRaces return {} records", races.size());
         return races;
     }
 
@@ -44,7 +51,13 @@ public class RaceHibernateDao implements RaceDao {
     @Transactional
     public void saveRaces(List<Race> races) {
         for(Race race : races) {
+            logger.info("Save race {}", race.getName());
             sessionFactory.getCurrentSession().saveOrUpdate(race);
         }
+    }
+
+    @Override
+    public void deleteRace(Long id) {
+        sessionFactory.getCurrentSession().delete(fetchRace(id)); // not performant since we load the object but this would cascade delete if needed
     }
 }
