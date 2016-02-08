@@ -6,3 +6,5 @@ create table races (
   state varchar(255),
   race_type varchar(255)
 );
+
+create sequence RACE_SEQ start with 1;

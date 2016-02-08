@@ -1,9 +1,13 @@
 package racejournal.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import racejournal.domain.Race;
 
 import javax.sql.DataSource;
 
@@ -22,5 +26,18 @@ public class DataConfig {
             .addScript("schema.sql")
 //            .addScript("data.sql")
             .build();
+    }
+
+    @Bean
+    public SessionFactory sessionFactory(DataSource dataSource) {
+        LocalSessionFactoryBuilder localSessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
+        localSessionFactoryBuilder.addAnnotatedClasses(Race.class);
+        return localSessionFactoryBuilder.buildSessionFactory();
+    }
+
+    @Bean
+    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
+        HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager(sessionFactory);
+        return hibernateTransactionManager;
     }
 }

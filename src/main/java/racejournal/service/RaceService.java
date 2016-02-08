@@ -34,8 +34,6 @@ public class RaceService {
     private String bootstrapFile;
     private String protoBufFile;
 
-    private AtomicLong atomicLong = new AtomicLong();
-
     public void setBootstrapFile(String bootstrapFile) {
         this.bootstrapFile = bootstrapFile;
     }
@@ -176,7 +174,7 @@ public class RaceService {
 
         String[] tokens = line.split(",");
         Race race = new Race();
-        race.setId(atomicLong.incrementAndGet());
+//        race.setId(atomicLong.incrementAndGet());
         race.setName(tokens[1].replace("\"","").trim());
         String[] dateTokens = tokens[3].split("/");
         race.setDate(LocalDate.of(Integer.parseInt(dateTokens[2]), Integer.parseInt(dateTokens[0]), Integer.parseInt(dateTokens[1])));

@@ -2,6 +2,7 @@ package racejournal.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -10,14 +11,26 @@ import java.util.Date;
 /**
  * Created by alaplante on 2/2/16.
  */
+@Entity
+@Table(name = "races")
+// http://izeye.blogspot.com/2015/08/error-sequence-hibernatesequence-not.html
+@SequenceGenerator(
+        name = "RACE_SEQ_GENERATOR",
+        sequenceName = "RACE_SEQ",
+        initialValue = 1, allocationSize = 1)
 public class Race {
-    // todo autoassign?
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RACE_SEQ_GENERATOR")
+    @Column(name = "id")
     Long id;
 
     String name;
     LocalDate date;
     String city;
     String state;
+
+    @Column(name = "race_type")
     RaceType raceType;
 
     public Race() {}

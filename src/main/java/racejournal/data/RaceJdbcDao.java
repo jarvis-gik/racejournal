@@ -1,5 +1,6 @@
 package racejournal.data;
 
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Primary;
 import racejournal.domain.Race;
 import racejournal.domain.RaceType;
@@ -15,22 +16,28 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by alaplante on 2/4/16.
  */
 @Repository
-@Primary
 public class RaceJdbcDao implements RaceDao {
     private final static Logger logger = LoggerFactory.getLogger(RaceJdbcDao.class);
 
     private NamedParameterJdbcTemplate jdbcTemplate;
+    private AtomicLong atomicLong = new AtomicLong();
 
     @Autowired
     @Override
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         logger.info("Datasource set");
+    }
+
+    @Override
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        logger.info("Uhh..."); //wtf
     }
 
 //    public String getEmailByName(String name) {
@@ -63,7 +70,7 @@ public class RaceJdbcDao implements RaceDao {
         int updateCount = 0;
         String sql = "insert into races (id, name, date, city, state, race_type) values (:id, :name, :date, :city, :state, :raceType)";
         for(Race race : races) {
-            MapSqlParameterSource namedParameters = new MapSqlParameterSource("id", race.getId());
+            MapSqlParameterSource namedParameters = new MapSqlParameterSource("id", atomicLong.incrementAndGet());
             namedParameters.addValue("name", race.getName());
             namedParameters.addValue("date", race.getDate().toString()); //java.sql.Date.valueOf( localDate );
             namedParameters.addValue("city", race.getCity());
