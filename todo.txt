@@ -1,19 +1,28 @@
+Today:
+    Hide DAO behind interface
+    Refactor dao behind interface
+    Elegant parsing of csv, externalize special case strings for generic handling
+
+
 Features:
-    Add Rider and allow Rider to log a RaceResult to record placing and details
+    Add Rider and allow Rider to log a RaceReport to record placing and details
+    Allow CRUD of rider objects
+    Allow CRUD of racereport objects
+
     Rider account creation with login / security
     Pull result data from USAC?
         https://www.usacycling.org/results/?compid=428596
     Scheduled recurring job to re-pull csv every day and reload if parsing successful, maintain date of most recent
 
 Tech:
-    Hide DAO behind interface and implement a MongoDB dao and JPA dao
+    JPA dao
+    MongoDB dao
     Microservice architecture using protobuf comm
     Move away from in-mem DB to actual RDB that saves data (keep configurable - in mem for dev work)
 
 Infrastructure:
     Refactor out protobuf and unneeded code
     Separate objects for REST/JSON vs data/persistance?
-    Elegant parsing of csv, externalize special case strings for generic handling
     Efficient batch save/insert of races opposed to individual right now
 
 Dev Ops

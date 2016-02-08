@@ -1,5 +1,5 @@
-# belllap
-An application for finding and discussing bike races.
+# Race Journal
+An application for finding bike races and recording race reports.
 
 To run:
 mvn jetty:run
