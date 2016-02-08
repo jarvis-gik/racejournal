@@ -1,6 +1,7 @@
 package racejournal.service;
 
-import racejournal.data.RaceRepository;
+import racejournal.data.RaceDao;
+import racejournal.data.RaceJdbcDao;
 import racejournal.domain.RaceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class RaceService {
     private ResourceLoader resourceLoader;
 
     @Autowired
-    private RaceRepository raceRepository;
+    private RaceDao raceDao;
 
     private String bootstrapFile;
     private String protoBufFile;
@@ -43,12 +44,12 @@ public class RaceService {
         this.protoBufFile = protoBufFile;
     }
 
-    public List<Race> getRacesByType(String type) {
-        return raceRepository.fetchRacesByType(type.toUpperCase());
-    }
+//    public List<Race> getRacesByType(String type) {
+//        return raceDao.fetchRacesByType(type.toUpperCase());
+//    }
 
     public List<Race> loadRaceData() {
-        List<Race> races  = raceRepository.fetchRaces();
+        List<Race> races  = raceDao.fetchRaces();
         if(races.isEmpty()) { // Bootstrap
             logger.info("DB empty thus bootstrap");
 //            races = parseCsv(bootstrapFile);
@@ -56,10 +57,10 @@ public class RaceService {
 
             // Save to DB
             logger.info("Save {} races to DB", races.size());
-            raceRepository.saveRaces(races);
+            raceDao.saveRaces(races);
 
         }
-        return raceRepository.fetchRaces();
+        return raceDao.fetchRaces();
     }
 
     public List<Race> pullRemoteAndParse() {
@@ -201,15 +202,15 @@ public class RaceService {
         }
     }
 
-    public Map<RaceType, List<Race>> partitionRacesByRaceType(List<Race> races) {
-        Map<RaceType, List<Race>> map = new HashMap<RaceType, List<Race>>();
-        for(Race race : races) {
-            if(map.get(race.getRaceType()) == null) {
-                map.put(race.getRaceType(), new ArrayList<Race>());
-            }
-            map.get(race.getRaceType()).add(race);
-        }
-        return map;
-    }
+//    public Map<RaceType, List<Race>> partitionRacesByRaceType(List<Race> races) {
+//        Map<RaceType, List<Race>> map = new HashMap<RaceType, List<Race>>();
+//        for(Race race : races) {
+//            if(map.get(race.getRaceType()) == null) {
+//                map.put(race.getRaceType(), new ArrayList<Race>());
+//            }
+//            map.get(race.getRaceType()).add(race);
+//        }
+//        return map;
+//    }
 }
 

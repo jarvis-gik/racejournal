@@ -1,5 +1,6 @@
 package racejournal.data;
 
+import org.springframework.context.annotation.Primary;
 import racejournal.domain.Race;
 import racejournal.domain.RaceType;
 import org.slf4j.Logger;
@@ -19,12 +20,14 @@ import java.util.List;
  * Created by alaplante on 2/4/16.
  */
 @Repository
-public class RaceRepository {
-    private final static Logger logger = LoggerFactory.getLogger(RaceRepository.class);
+@Primary
+public class RaceJdbcDao implements RaceDao {
+    private final static Logger logger = LoggerFactory.getLogger(RaceJdbcDao.class);
 
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
+    @Override
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         logger.info("Datasource set");
@@ -36,6 +39,7 @@ public class RaceRepository {
 //        return jdbcTemplate.queryForObject(sql, new MapSqlParameterSource("name", name), String.class);
 //    }
 
+    @Override
     public List<Race> fetchRaces() {
         return jdbcTemplate.query("select id, name, date, city, state, race_type from races", new RaceMapper());
     }
@@ -54,6 +58,7 @@ public class RaceRepository {
     }
 
     // todo batch for efficiency
+    @Override
     public void saveRaces(List<Race> races) {
         int updateCount = 0;
         String sql = "insert into races (id, name, date, city, state, race_type) values (:id, :name, :date, :city, :state, :raceType)";
@@ -69,8 +74,8 @@ public class RaceRepository {
         logger.info("Inserted {} races", updateCount);
     }
 
-    public List<Race> fetchRacesByType(String type) {
-        logger.info("Fetch {} races", type);
-        return jdbcTemplate.query("select id, name, date, city, state, race_type from races where race_type = :raceType", new MapSqlParameterSource("raceType", type), new RaceMapper());
-    }
+//    public List<Race> fetchRacesByType(String type) {
+//        logger.info("Fetch {} races", type);
+//        return jdbcTemplate.query("select id, name, date, city, state, race_type from races where race_type = :raceType", new MapSqlParameterSource("raceType", type), new RaceMapper());
+//    }
 }

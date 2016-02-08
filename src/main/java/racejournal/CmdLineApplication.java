@@ -25,13 +25,13 @@ public class CmdLineApplication {
         List<Race> races = raceService.loadRaceData();
         logger.info("Loaded {} races", races.size());
 
-        Map<RaceType, List<Race>> racesByRaceTypeMap = raceService.partitionRacesByRaceType(races);
-        for(RaceType raceType : racesByRaceTypeMap.keySet()) {
-            List<Race> racesByRaceType = racesByRaceTypeMap.get(raceType);
-            logger.info("--- {} {} ---", racesByRaceType.size(), raceType);
-            for(Race race : racesByRaceType) {
-                logger.info("   {}", race);
-            }
-        }
+//        Map<RaceType, List<Race>> racesByRaceTypeMap = raceService.partitionRacesByRaceType(races);
+//        for(RaceType raceType : racesByRaceTypeMap.keySet()) {
+//            List<Race> racesByRaceType = racesByRaceTypeMap.get(raceType);
+//            logger.info("--- {} {} ---", racesByRaceType.size(), raceType);
+//            for(Race race : racesByRaceType) {
+//                logger.info("   {}", race);
+//            }
+//        }
     }
 }

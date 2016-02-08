@@ -25,10 +25,10 @@ public class RaceController {
 //        return raceRepository.getEmailByName(name);
 //    }
 
-    @RequestMapping(value = "/racesByType", method = RequestMethod.GET, produces = "application/json")
-    public List<Race> races(@RequestParam("type") String type) {
-        return raceService.getRacesByType(type.trim());
-    }
+//    @RequestMapping(value = "/racesByType", method = RequestMethod.GET, produces = "application/json")
+//    public List<Race> races(@RequestParam("type") String type) {
+//        return raceService.getRacesByType(type.trim());
+//    }
 
     @RequestMapping(value = "races", method = RequestMethod.GET, produces = "application/json")
     public List<Race> races() {
