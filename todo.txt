@@ -1,5 +1,8 @@
 Today:
     Proper HTTP return values on REST calls
+    Add other relations and CRUD
+Tomorrow:
+    UI support to create rider and race report
 
 Features:
     Add Rider and allow Rider to log a RaceReport to record placing and details

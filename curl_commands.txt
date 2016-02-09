@@ -1,0 +1,27 @@
+curl -v -H "Accept:application/json" http://localhost:8080/rest/bootstrap
+
+curl -v -H "Accept:application/json" http://localhost:8080/rest/races | json_pp
+
+curl -i -X POST -H "Content-Type:application/json" http://localhost:8080/rest/race -d '
+    {
+        "name":"Adams Big Race",
+        "date":"05/14/2016",
+        "city":"Broomfield",
+        "state":"CO",
+        "raceType":"Criterium"
+    }'
+
+curl -v -H "Accept:application/json" http://localhost:8080/rest/race/66 | json_pp
+
+curl -i -X PUT -H "Content-Type:application/json" http://localhost:8080/rest/race/66 -d '
+    {
+        "name":"Adams BIGGER BETTER Race",
+        "date":"05/14/2016",
+        "city":"Broomfield",
+        "state":"CO",
+        "raceType":"Criterium"
+    }'
+
+curl -v -H "Accept:application/json" http://localhost:8080/rest/race/66 | json_pp
+
+curl -i -X DELETE -H "Content-Type:application/json" http://localhost:8080/rest/race/66
