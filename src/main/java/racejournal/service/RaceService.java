@@ -233,5 +233,10 @@ public class RaceService {
 //        }
 //        return map;
 //    }
+
+    public void test() {
+        raceDao.testCreate();
+        raceDao.testGet();
+    }
 }
 

@@ -15,4 +15,7 @@ public interface RaceDao {
     void saveRaces(List<Race> races);
     void updateRaces(List<Race> races);
     void deleteRace(Long id);
+
+    public void testCreate();
+    public void testGet();
 }

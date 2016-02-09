@@ -53,6 +53,16 @@ public class RaceMongoRawDao implements RaceDao {
     }
 
     @Override
+    public void testCreate() {
+
+    }
+
+    @Override
+    public void testGet() {
+
+    }
+
+    @Override
     public void updateRaces(List<Race> races) {
         logger.error("TODO");
     }

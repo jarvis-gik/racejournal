@@ -7,6 +7,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by alaplante on 2/2/16.
@@ -32,6 +34,9 @@ public class Race {
 
     @Column(name = "race_type")
     RaceType raceType;
+
+    @OneToMany(mappedBy = "race")
+    Set<RaceResult> raceResults = new HashSet<RaceResult>();
 
     public Race() {}
 
@@ -102,6 +107,14 @@ public class Race {
 
     public void setRaceType(RaceType raceType) {
         this.raceType = raceType;
+    }
+
+    public Set<RaceResult> getRaceResults() {
+        return raceResults;
+    }
+
+    public void setRaceResults(Set<RaceResult> raceResults) {
+        this.raceResults = raceResults;
     }
 
     @Override

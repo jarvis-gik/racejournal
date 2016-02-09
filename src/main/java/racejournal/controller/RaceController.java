@@ -83,4 +83,9 @@ public class RaceController {
     public void bootstrap() {
         raceService.bootstrap();
     }
+
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public void test() {
+        raceService.test();
+    }
 }

@@ -36,7 +36,7 @@ public class UsacResultsDownloadParser {
                     placing = extractPlacing(line);
                 }
 //                System.out.println(line);
-               count++;
+                count++;
 
 
             }
@@ -45,22 +45,22 @@ public class UsacResultsDownloadParser {
                 count = 0;
                 startCaring = false;
                 String[] places = placing.split("/");
-                Double place = -1d;
-                Double total = -1d;
+                Double place = null; // new BigDecimal(-1);
+                Double total = null; // new BigDecimal(-1);
                 try {
-                    place = Double.parseDouble(places[0].trim());
-                    total = Double.parseDouble(places[1].trim());
+                    place = new Double(places[0].trim());
+                    total = new Double(places[1].trim());
                 } catch(Exception e) { // ignore
-
+                    System.out.println("Cant format " + place);
                 }
-                Double percentage = 0d;
-                if(place != -1) {
+                Double percentage = null;
+                if(place != null) {
 //                    System.out.println(place + "/" + total);
-                    percentage = (place / total) * 100;
+                    percentage = place / total * 100;
                 }
 
                 // todo qualify top 3 as podium, 1 as win, and top 10
-                System.out.println(name + " " + date + " " + placing + " " + percentage.intValue() + "%");
+                System.out.println(name + " " + date + " " + placing + " " + (percentage != null ? percentage.intValue() + "%" : "DNF" ));
             }
         }
     }

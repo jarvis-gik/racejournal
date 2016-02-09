@@ -13,6 +13,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
 import racejournal.data.RaceDao;
 import racejournal.data.RaceMongoRawDao;
 import racejournal.domain.Race;
+import racejournal.domain.RaceResult;
+import racejournal.domain.Rider;
 
 import javax.sql.DataSource;
 
@@ -40,7 +42,7 @@ public class DataConfig {
     @Bean
     public SessionFactory sessionFactory(DataSource dataSource) {
         LocalSessionFactoryBuilder localSessionFactoryBuilder = new LocalSessionFactoryBuilder(dataSource);
-        localSessionFactoryBuilder.addAnnotatedClasses(Race.class);
+        localSessionFactoryBuilder.addAnnotatedClasses(Race.class, Rider.class, RaceResult.class);
         return localSessionFactoryBuilder.buildSessionFactory();
     }
 
