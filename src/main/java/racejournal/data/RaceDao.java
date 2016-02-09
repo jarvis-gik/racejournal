@@ -13,5 +13,6 @@ public interface RaceDao {
     Race fetchRace(Long id);
     List<Race> fetchRaces();
     void saveRaces(List<Race> races);
+    void updateRaces(List<Race> races);
     void deleteRace(Long id);
 }

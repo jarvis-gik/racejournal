@@ -47,6 +47,11 @@ public class RaceJdbcDao implements RaceDao {
     }
 
     @Override
+    public void updateRaces(List<Race> races) {
+        logger.error("TODO");
+    }
+
+    @Override
     public List<Race> fetchRaces() {
         return jdbcTemplate.query("select id, name, date, city, state, race_type from races", new RaceMapper());
     }

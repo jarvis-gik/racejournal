@@ -57,6 +57,18 @@ public class RaceHibernateDao implements RaceDao {
     }
 
     @Override
+    @Transactional
+    public void updateRaces(List<Race> races) {
+        for(Race race : races) {
+            logger.info("Update race {} {}", race.getId(), race.getName());
+//            Race persistantRace = fetchRace(race.getId());
+            Race mergedRace = (Race) sessionFactory.getCurrentSession().merge(race);
+            sessionFactory.getCurrentSession().saveOrUpdate(mergedRace);
+        }
+    }
+
+    @Override
+    @Transactional
     public void deleteRace(Long id) {
         sessionFactory.getCurrentSession().delete(fetchRace(id)); // not performant since we load the object but this would cascade delete if needed
     }

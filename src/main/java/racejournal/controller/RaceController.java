@@ -36,9 +36,10 @@ public class RaceController {
 //    }
 
     /*
-    {
+
     Content-Type: application/json
 
+    {
      "name":"Adams Big Race",
      "date":"05/14/2016",
      "city":"Broomfield",
@@ -53,11 +54,12 @@ public class RaceController {
         raceService.saveRaces(Arrays.asList(race));
     }
 
-//    @RequestMapping(value = "race/{id}", method = RequestMethod.PUT, consumes = "application/json")
-//    public void updateRace(@PathVariable Long id, @RequestBody Race race) {
-//        logger.info("updateRace {}", race);
-//        raceService.saveRaces(Arrays.asList(race));
-//    }
+    @RequestMapping(value = "race/{id}", method = RequestMethod.PUT, consumes = "application/json")
+    public void updateRace(@PathVariable Long id, @RequestBody Race race) {
+        logger.info("updateRace {}", race);
+        race.setId(id);
+        raceService.updateRaces(Arrays.asList(race));
+    }
 
     @RequestMapping(value = "race/{id}", method = RequestMethod.GET)
     public Race getRace(@PathVariable Long id) {

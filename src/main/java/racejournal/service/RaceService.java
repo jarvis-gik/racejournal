@@ -79,6 +79,10 @@ public class RaceService {
         raceDao.saveRaces(races);
     }
 
+    public void updateRaces(List<Race> races) {
+        raceDao.updateRaces(races);
+    }
+
     public List<Race> pullRemoteAndParse() {
         List<Race> races = new ArrayList<Race>();
         try {

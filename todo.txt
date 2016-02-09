@@ -1,5 +1,4 @@
 Today:
-    Race CRUD (even if not needed)
     Proper HTTP return values on REST calls
 
 Features:
