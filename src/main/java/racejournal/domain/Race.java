@@ -1,6 +1,7 @@
 package racejournal.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -109,6 +110,7 @@ public class Race {
         this.raceType = raceType;
     }
 
+    @JsonIgnore
     public Set<RaceResult> getRaceResults() {
         return raceResults;
     }

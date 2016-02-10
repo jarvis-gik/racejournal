@@ -139,9 +139,9 @@ public class RaceHibernateDao implements RaceDao {
         }
 
         Race race1 = fetchRace(10l);
-        logger.info("Got race  {} with results", race1, race1.getRaceResults());
+        logger.info("Got race  {} with results {}", race1, race1.getRaceResults());
 
         Race race2 = fetchRace(20l);
-        logger.info("Got race 2 {} with results", race2, race2.getRaceResults());
+        logger.info("Got race 2 {} with results {}", race2, race2.getRaceResults());
     }
 }

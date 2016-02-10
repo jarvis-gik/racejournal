@@ -1,6 +1,6 @@
 Today:
     Proper HTTP return values on REST calls
-    Add other relations and CRUD
+    REST CRUD for Rider and RaceResult
 
 
 Features:
