@@ -36,7 +36,7 @@ public class Race {
     @Column(name = "race_type")
     RaceType raceType;
 
-    @OneToMany(mappedBy = "race")
+    @OneToMany(mappedBy = "race", fetch = FetchType.EAGER)
     Set<RaceResult> raceResults = new HashSet<RaceResult>();
 
     public Race() {}

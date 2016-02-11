@@ -30,7 +30,7 @@ public class Rider {
     private Long usacNumber;
     private String club;
 
-    @OneToMany(mappedBy = "rider")
+    @OneToMany(mappedBy = "rider", fetch = FetchType.EAGER)
     Set<RaceResult> raceResults = new HashSet<RaceResult>();
 
 

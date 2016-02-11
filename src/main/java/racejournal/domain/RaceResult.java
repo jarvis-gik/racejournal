@@ -24,6 +24,7 @@ public class RaceResult {
     private Long fieldSize;
     @Column(name = "race_result_type")
     private RaceResultType raceResultType;
+    long percentile;
     private String description;
 
     @ManyToOne
@@ -67,6 +68,14 @@ public class RaceResult {
         this.raceResultType = raceResultType;
     }
 
+    public long getPercentile() {
+        return percentile;
+    }
+
+    public void setPercentile(long percentile) {
+        this.percentile = percentile;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -93,7 +102,7 @@ public class RaceResult {
 
     @Override
     public String toString() {
-        return String.format("RaceResult[id=%s, placing='%s', fieldSize=%s, raceResultType='%s', description='%s']",
-                id, placing, fieldSize, raceResultType, description);
+        return String.format("RaceResult[id=%s, placing='%s', fieldSize=%s, percentile=%s raceResultType='%s', description='%s']",
+                id, placing, fieldSize, percentile, raceResultType, description);
     }
 }

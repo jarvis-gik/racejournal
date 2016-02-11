@@ -1,14 +1,10 @@
-Today:
+Immediate:
     Proper HTTP return values on REST calls
     REST CRUD for Rider and RaceResult
-
+    Filter races by year (2015 w results vs 2016)
 
 Features:
     Add Rider and allow Rider to log a RaceReport to record placing and details
-        Allow CRUD of rider objects
-        Allow CRUD of racereport objects
-
-    Elegant parsing of csv, externalize special case strings for generic handling
     Rider account creation with login / security
     Pull result data from USAC?
         https://www.usacycling.org/results/?compid=428596
@@ -24,7 +20,7 @@ Infrastructure:
     Separate objects for REST/JSON vs data/persistance?
     Efficient batch save/insert of races opposed to individual right now
     Move away from in-mem DB to actual RDB that saves data (keep configurable - in mem for dev work)
-
+    Elegant parsing of csv, externalize special case strings for generic handling
 
 Dev Ops
     Get mvn jetty:run hot deploy working

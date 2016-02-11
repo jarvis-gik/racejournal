@@ -15,7 +15,7 @@ import java.util.List;
  * Created by alaplante on 2/3/16.
  */
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/race")
 public class RaceController {
     private final static Logger logger = LoggerFactory.getLogger(RaceService.class);
 

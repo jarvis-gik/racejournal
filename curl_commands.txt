@@ -1,3 +1,33 @@
+
+# load races
+curl -v -H "Accept:application/json" http://localhost:8080/rest/race/bootstrap
+
+# create a rider
+curl -i -X POST -H "Content-Type:application/json" http://localhost:8080/rest/rider/rider -d '
+    {
+        "firstName":"Adam",
+        "lastName":"LaPlante",
+        "city":"Broomfield",
+        "state":"CO",
+        "usacNumber":"428596",
+        "club":"Sonic Boom Racing"
+    }'
+
+# get rider
+curl -v -H "Content-Type:application/json" http://localhost:8080/rest/rider/rider/1 | json_pp
+
+
+# download race results for rider and associate to races and save
+curl -v -H "Content-Type:application/json" http://localhost:8080/rest/result/rider/download/1
+
+# get results back to client
+curl -v -H "Content-Type:application/json" http://localhost:8080/rest/result/rider/results/1 | json_pp
+
+
+
+
+
+
 curl -v -H "Accept:application/json" http://localhost:8080/rest/bootstrap
 
 curl -v -H "Accept:application/json" http://localhost:8080/rest/races | json_pp

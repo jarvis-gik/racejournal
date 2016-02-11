@@ -27,7 +27,7 @@
                     $scope.races = {};
 
                     $scope.loadRaces = function(){
-                        $http.get('../rest/races')// this is probably bad but it worked...
+                        $http.get('../rest/race/races')// this is probably bad but it worked...
                                 .success(function(data, status, headers, config) {
                                     $scope.races = data;
                                 })

@@ -22,6 +22,7 @@ create table race_results (
   placing int,
   field_size int,
   race_result_type varchar(510),
+  percentile int,
   description text,
   rider_id int,
   race_id int
