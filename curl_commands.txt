@@ -28,6 +28,8 @@ curl -v -H "Content-Type:application/json" http://localhost:8080/rest/result/rid
 
 
 
+
+
 curl -v -H "Accept:application/json" http://localhost:8080/rest/bootstrap
 
 curl -v -H "Accept:application/json" http://localhost:8080/rest/races | json_pp

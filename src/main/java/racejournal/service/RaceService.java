@@ -51,8 +51,8 @@ public class RaceService {
         if(races.isEmpty()) { // Bootstrap
             logger.info("DB empty thus bootstrap");
             try {
-//                races = pullRemoteAndParse();
-                races = parseCsv(bootstrapFile); // dont spam coloradocycling.org while testing
+                races = pullRemoteAndParse();
+//                races = parseCsv(bootstrapFile); // dont spam coloradocycling.org while testing
             } catch(Exception e) {
                 logger.error("Error pulling or parsing remote file", e);
                 races = parseCsv(bootstrapFile);
@@ -190,6 +190,7 @@ public class RaceService {
     private Race parseCsvLine(String line) {
         logger.info("Parse line {}", line);
         if(line.contains("\"event number\"")) return null; // skip header
+        if(line.contains("GC")) return null;
         if(line.contains("(SMP 1-2, SM 3, SW P-1-2)")) {
             line = line.replaceAll("SMP 1-2, SM 3, SW P-1-2", "SMP 1-2 SM 3 SW P-1-2");
         }

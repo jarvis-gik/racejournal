@@ -1,9 +1,12 @@
 Immediate:
     Proper HTTP return values on REST calls
     REST CRUD for Rider and RaceResult
-    Filter races by year (2015 w results vs 2016)
+    Configure Log4j to write to file
+    User account creation
+    Security
 
 Features:
+    Filter races by year (2015 w results vs 2016)
     Add Rider and allow Rider to log a RaceReport to record placing and details
     Rider account creation with login / security
     Pull result data from USAC?

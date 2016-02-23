@@ -34,6 +34,7 @@ public class RaceResultsService {
         List<RaceResult> raceResults = new ArrayList<RaceResult>();
         // TODO proper finder to query with usacNumber
         List<RaceResult> allRaceResults = genericHibernateDao.getAll(RaceResult.class);
+
         for(RaceResult raceResult : allRaceResults) {
             if(raceResult.getRider().getUsacNumber().equals(usacNumber)) {
                 raceResults.add(raceResult);
@@ -47,18 +48,25 @@ public class RaceResultsService {
         Map<RaceKey, RaceResult> raceResultMap = usacResultsDownloadParser.downloadAndParse(usacNumber);
         for(RaceKey raceKey : raceResultMap.keySet()) {
             RaceResult raceResult = raceResultMap.get(raceKey);
-            logger.info("For race {} result was {}", raceKey, raceResult);
+            logger.info("Race {} result was {}", raceKey, raceResult);
         }
         // todo proper finder
-        List<Rider> riders = genericHibernateDao.getAll(Rider.class);
-        for(Rider rider : riders) {
-            if(rider.getUsacNumber().equals(usacNumber)) {
-                mapResultsToRaces(rider, raceResultMap);
-                break;
-            }
+
+        Rider rider = null;
+        try {
+            rider = genericHibernateDao.findOneByProperty(Rider.class, "usacNumber", usacNumber);
+        } catch(Exception e) {
+            logger.error("Error fetching rider", e);
         }
+
+        if(rider != null) mapResultsToRaces(rider, raceResultMap);
+
     }
 
+    /*
+    TODO BUG
+    New rider instance created and saved with every race result
+     */
     private void mapResultsToRaces(Rider rider, Map<RaceKey, RaceResult> raceResultMap) {
         // TODO add query to get races by date
         List<Race> races = genericHibernateDao.getAll(Race.class);
@@ -67,7 +75,10 @@ public class RaceResultsService {
             List<Race> possibleMatches = new ArrayList<Race>();
             for(Race race : races) { // TODO poor performance nested looping investigate adding query to get by date and compare
                 if(race.getDate().equals(raceKey.getDate())) {
+                    logger.info("Race {} possible match for date {}", race, raceKey.getDate());
                     possibleMatches.add(race);
+                } else {
+//                    logger.info("DID NOT MATCH Race {} for date {}", race, raceKey.getDate());
                 }
             }
             if(possibleMatches.size() == 1) {
@@ -87,12 +98,12 @@ public class RaceResultsService {
                 // Add result to rider collection
                 rider.getRaceResults().add(raceResult);
                 genericHibernateDao.save(rider);
-                logger.info("Mapped rider {} to result {} at race {}", new Object[] {rider.getFirstName(), raceResult.getRaceResultType(), raceResult.getRace()});
+                logger.info("Mapped rider {} to result {} at race {}", new Object[] {rider.getId(), raceResult.getRaceResultType(), raceResult.getRace()});
             } else if(possibleMatches.size() > 1) {
                 // Figure out based on name
-                logger.info("TODO based on name match");
+                logger.info("TODO match based on name");
             } else {
-                logger.info("No race found for race result {}", raceResult);
+                logger.info("No race found for key {} result {}", raceKey, raceResult);
             }
         }
     }

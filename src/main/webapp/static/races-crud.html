@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>Races</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootswatch/3.1.0/cyborg/bootstrap.min.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+<!-- putting this at the top to remove the jarring load -->
+<script src="http://code.angularjs.org/1.2.10/angular.min.js"></script>
+<body ng-controller="MainCtl">
+	<div class="jumbotron">
+		<button class="btn btn-primary pull-right" ng-click="add()">
+			<i class="fa fa-plus"></i> Add race
+		</button>
+		<h1>Races</h1>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 well">
+				<h3>Races</h3>
+				<ul class="nav nav-pills nav-stacked">
+					<li ng-class="{active: r.name == selected.name}" ng-repeat="r in races">
+						<a href="" ng-click="get($index)">{{r.name}}</a>
+					</li>
+				</ul>
+			</div>
+			<div class="col-sm-6" ng-show="selected">
+				<h2>{{selected.name}}</h2>
+				<dl class="dl-horizontal">
+					<dt>Location:</dt>
+					<dd>{{selected.city}}</dd>
+				</dl>
+			</div>
+			<div class="col-sm-3" ng-show="selected">
+				<button class="btn btn-primary form-control" ng-click="update(selected.idx)">
+					<i class="fa fa-pencil"></i> Update this race
+				</button>
+				<button class="btn btn-danger form-control" ng-click="remove(selected.idx)">
+					<i class="fa fa-trash-o"></i> Remove this race
+				</button>
+			</div>
+		</div>
+	</div>
+<script src="http://code.angularjs.org/1.2.10/angular-resource.min.js"></script>
+<script>
+	// new dependency: ngResource is included just above
+	var myapp = new angular.module("myapp", ["ngResource"]);
+
+	// inject the $resource dependency here
+	myapp.controller("MainCtl", ["$scope", "$resource", function($scope, $resource){
+		// I designed the backend to play nicely with angularjs so this is all the
+		// setup we need to do all of the ususal operations.
+		var Race = $resource("/races/:id", {id: '@id'}, {});
+
+		$scope.selected = null;
+
+		$scope.list = function(idx){
+			// Notice calls to Race are often given callbacks.
+			Race.query(function(data){
+				$scope.races = data;
+				if(idx != undefined) {
+					$scope.selected = $scope.races[idx];
+					$scope.selected.idx = idx;
+				}
+			}, function(error){
+				alert(error.data);
+			});
+		};
+
+		$scope.list();
+
+		$scope.get = function(idx){
+			// Passing parameters to Race calls will become arguments if
+			// we haven't defined it as part of the path (we did with id)
+			Race.get({id: $scope.races[idx].id}, function(data){
+				$scope.selected = data;
+				$scope.selected.idx = idx;
+			});
+		};
+
+		$scope.add = function() {
+			// I was lazy with the user input.
+			var name = prompt("Enter the races's name.");
+			if(name == null){
+				return;
+			}
+			var city = prompt("Enter the races's location.");
+			if(city == null){
+				return;
+			}
+			// Creating a blank race object means you can still $save
+			var newRace = new Race();
+			newRace.name = name;
+			newRace.city = city;
+			newRace.$save();
+
+			$scope.list();
+		};
+
+		$scope.update = function(idx) {
+			var race = $scope.races[idx];
+			var name = prompt("Enter a new name", race.name);
+			if(name == null) {
+				return;
+			}
+			var city = prompt("Enter a new location", race.city);
+			if(city == null) {
+				return;
+			}
+			race.name = name;
+			race.city = city;
+			// Noticed I never created a new Race()?
+			race.$save();
+
+			$scope.list(idx);
+		};
+
+		$scope.remove = function(idx){
+			$scope.races[idx].$delete();
+			$scope.selected = null;
+			$scope.list();
+		};
+	}]);
+</script>
+</body>
+</html>

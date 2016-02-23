@@ -10,6 +10,7 @@ import racejournal.service.RaceService;
 import racejournal.service.RiderService;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by alaplante on 2/10/16.
@@ -26,6 +27,12 @@ public class RiderController {
     public void createRider(@RequestBody Rider rider) {
         logger.info("createRider {}", rider);
         riderService.saveRider(rider);
+    }
+
+    @RequestMapping(value = "riders", method = RequestMethod.GET)
+    public List<Rider> createRider() {
+        logger.info("riders");
+        return riderService.fetchRiders();
     }
 
     @RequestMapping(value = "rider/{id}", method = RequestMethod.GET)

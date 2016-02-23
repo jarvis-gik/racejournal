@@ -3,6 +3,7 @@ package racejournal.data;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,35 @@ public class GenericHibernateDao {
         final Session session = sessionFactory.getCurrentSession();
         final Criteria crit = session.createCriteria(type);
         return crit.list();
+    }
+
+    /*
+    TODO If refactor and change object method names then callers with string method name will break
+    Investigate a better way
+     */
+    @Transactional
+    public <T> List<T> findByProperty(final Class<T> type, final String property, final Object value) {
+        logger.info("FindByProperty {} {} {}", new Object[] {type, property, value});
+        final Session session = sessionFactory.getCurrentSession();
+        final Criteria crit = session.createCriteria(type);
+        crit.add(Restrictions.eq(property, value));
+        return crit.list();
+    }
+
+    /*
+    TODO proper exception
+     */
+    @Transactional
+    public <T> T findOneByProperty(final Class<T> type, final String property, final Object value) throws Exception {
+        logger.info("FindByProperty {} {} {}", new Object[] {type, property, value});
+        final Session session = sessionFactory.getCurrentSession();
+        final Criteria crit = session.createCriteria(type);
+        crit.add(Restrictions.eq(property, value));
+        List<T> list = crit.list();
+        if(list.size() != 1) {
+            logger.info("Found zero or more than one {}", list);
+            throw new Exception(String.format("Single unique result not found for %s %s %s", type, property, value));
+        }
+        return list.get(0);
     }
 }

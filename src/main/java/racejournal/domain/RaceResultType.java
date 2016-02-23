@@ -10,7 +10,8 @@ public enum RaceResultType {
     PODIUM("Podium"),
     TOP_TEN("Top Ten"),
     FINISH("Finish"),
-    DID_NOT_FINISH("Did Not Finish");
+    DID_NOT_FINISH("Did Not Finish"),
+    DID_NOT_START("Did Not Start");
 
     private String value;
 
