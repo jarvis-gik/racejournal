@@ -87,8 +87,8 @@ public class GenericHibernateDao {
         crit.add(Restrictions.eq(property, value));
         List<T> list = crit.list();
         if(list.size() != 1) {
-            logger.info("Found zero or more than one {}", list);
-            throw new Exception(String.format("Single unique result not found for %s %s %s", type, property, value));
+            logger.info("Unique result not found {}", list);
+            throw new Exception(String.format("Unique result not found for %s %s %s", type, property, value));
         }
         return list.get(0);
     }

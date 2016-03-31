@@ -83,7 +83,7 @@ public class RaceService {
         raceDao.updateRaces(races);
     }
 
-    public List<Race> pullRemoteAndParse() {
+    public List<Race> pullRemoteAndParse() throws Exception {
         List<Race> races = new ArrayList<Race>();
         try {
             URL url = new URL("http://www.coloradocycling.org/calendar/download");
@@ -97,6 +97,7 @@ public class RaceService {
             reader.close();
         } catch(Exception e) {
             logger.error("Error pulling file");
+            throw e;
         }
         return races;
     }

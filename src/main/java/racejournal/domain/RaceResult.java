@@ -12,7 +12,7 @@ import java.util.Set;
         name = "RACE_RESULT_SEQ_GENERATOR",
         sequenceName = "RACE_RESULT_SEQ",
         initialValue = 1, allocationSize = 1)
-public class RaceResult {
+public class RaceResult { // TODO refactor to 'journal entry' so can record info w/o result
     // ref to rider
     // ref to race
     @Id
@@ -26,6 +26,11 @@ public class RaceResult {
     private RaceResultType raceResultType;
     long percentile;
     private String description;
+
+    // TODO
+    private boolean targeted; // plan to do race
+
+    // TODO add capability to look at other racer entries and display other racers or teammates also targeting a race
 
     @ManyToOne
     @JoinColumn(name="rider_id")

@@ -25,7 +25,8 @@ create table race_results (
   percentile int,
   description text,
   rider_id int,
-  race_id int
+  race_id int,
+  targeted boolean
 --   foreign key (rider_id) references riders(id)
 );
 
