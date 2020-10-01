@@ -1,5 +1,5 @@
 # Race Journal
-An application for finding bike races and recording race reports.
+An  amazing application for finding bike races and recording race reports.
 
 To run:
 mvn jetty:run
